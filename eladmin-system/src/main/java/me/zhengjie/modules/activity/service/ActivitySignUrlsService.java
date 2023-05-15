@@ -15,9 +15,9 @@
 */
 package me.zhengjie.modules.activity.service;
 
-import me.zhengjie.modules.activity.domain.ActivityAll;
-import me.zhengjie.modules.activity.service.dto.ActivityAllDto;
-import me.zhengjie.modules.activity.service.dto.ActivityAllQueryCriteria;
+import me.zhengjie.modules.activity.domain.ActivitySignUrls;
+import me.zhengjie.modules.activity.service.dto.ActivitySignUrlsDto;
+import me.zhengjie.modules.activity.service.dto.ActivitySignUrlsQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -28,9 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 * @website https://eladmin.vip
 * @description 服务接口
 * @author xt
-* @date 2023-05-15
+* @date 2023-05-16
 **/
-public interface ActivityAllService {
+public interface ActivitySignUrlsService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface ActivityAllService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(ActivityAllQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(ActivitySignUrlsQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<ActivityAllDto>
+    * @return List<ActivitySignUrlsDto>
     */
-    List<ActivityAllDto> queryAll(ActivityAllQueryCriteria criteria);
+    List<ActivitySignUrlsDto> queryAll(ActivitySignUrlsQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return ActivityAllDto
+     * @return ActivitySignUrlsDto
      */
-    ActivityAllDto findById(Long id);
+    ActivitySignUrlsDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return ActivityAllDto
+    * @return ActivitySignUrlsDto
     */
-    ActivityAllDto create(ActivityAll resources);
+    ActivitySignUrlsDto create(ActivitySignUrls resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(ActivityAll resources);
+    void update(ActivitySignUrls resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface ActivityAllService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<ActivityAllDto> all, HttpServletResponse response) throws IOException;
+    void download(List<ActivitySignUrlsDto> all, HttpServletResponse response) throws IOException;
 }

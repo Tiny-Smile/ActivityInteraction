@@ -16,41 +16,14 @@
 package me.zhengjie.modules.activity.service.dto;
 
 import lombok.Data;
-import java.io.Serializable;
+import java.util.List;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://eladmin.vip
-* @description /
 * @author xt
-* @date 2023-05-15
+* @date 2023-05-16
 **/
 @Data
-public class ActivityAllDto implements Serializable {
-
-    /** 活动id */
-    private Long actiId;
-
-    /** 活动主题 */
-    private String theme;
-
-    /** 主办方 */
-    private Long deptId;
-
-    /** 活动地点 */
-    private String address;
-
-    /** 活动时间 */
-    private String dateTime;
-
-    /** 参加对象 */
-    private String joinPeople;
-
-    /** id */
-    private Long id;
-
-    /** 活动类型 */
-    private String type;
-
-    /** 0: 结束，other：进行中 */
-    private String status;
+public class ActivitySignUrlsQueryCriteria{
 }

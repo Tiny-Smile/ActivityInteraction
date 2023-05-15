@@ -16,41 +16,23 @@
 package me.zhengjie.modules.activity.service.dto;
 
 import lombok.Data;
+import java.sql.Timestamp;
 import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
 * @description /
 * @author xt
-* @date 2023-05-15
+* @date 2023-05-16
 **/
 @Data
-public class ActivityAllDto implements Serializable {
+public class ActivitySignUrlsDto implements Serializable {
 
-    /** 活动id */
     private Long actiId;
 
-    /** 活动主题 */
-    private String theme;
+    private String signUrl;
 
-    /** 主办方 */
-    private Long deptId;
+    private Timestamp createDate;
 
-    /** 活动地点 */
-    private String address;
-
-    /** 活动时间 */
-    private String dateTime;
-
-    /** 参加对象 */
-    private String joinPeople;
-
-    /** id */
     private Long id;
-
-    /** 活动类型 */
-    private String type;
-
-    /** 0: 结束，other：进行中 */
-    private String status;
 }
