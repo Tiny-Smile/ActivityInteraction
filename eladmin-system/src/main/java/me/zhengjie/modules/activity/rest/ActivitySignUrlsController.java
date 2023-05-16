@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.activity.rest;
 
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.activity.domain.ActivitySignUrls;
 import me.zhengjie.modules.activity.service.ActivitySignUrlsService;
@@ -83,5 +84,18 @@ public class ActivitySignUrlsController {
     public ResponseEntity<Object> deleteActivitySignUrls(@RequestBody Long[] ids) {
         activitySignUrlsService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/generate_sign_qrcode")
+    @Log("生成活动签到二维码")
+    @ApiOperation("生成活动签到二维码")
+    @AnonymousAccess
+    public ResponseEntity<Object> generateSignQrcode(String acti_id){
+        String url = "http://localhost:8013/activity/sign?acti_id="+acti_id;
+        ActivitySignUrls activitySignUrls = new ActivitySignUrls();
+        activitySignUrls.setSignUrl(url);
+        activitySignUrls.setActiId(Long.parseLong(acti_id));
+        activitySignUrlsService.createOrUpdate(activitySignUrls);
+        return new ResponseEntity<>(url, HttpStatus.OK);
     }
 }

@@ -15,9 +15,9 @@
 */
 package me.zhengjie.modules.activity.service;
 
-import me.zhengjie.modules.activity.domain.ActivitySignUrls;
-import me.zhengjie.modules.activity.service.dto.ActivitySignUrlsDto;
-import me.zhengjie.modules.activity.service.dto.ActivitySignUrlsQueryCriteria;
+import me.zhengjie.modules.activity.domain.ActivitySignList;
+import me.zhengjie.modules.activity.service.dto.ActivitySignListDto;
+import me.zhengjie.modules.activity.service.dto.ActivitySignListQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -27,10 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
 * @website https://eladmin.vip
 * @description 服务接口
-* @author xt
+* @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignUrlsService {
+public interface ActivitySignListService {
 
     /**
     * 查询数据分页
@@ -38,40 +38,34 @@ public interface ActivitySignUrlsService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(ActivitySignUrlsQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(ActivitySignListQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<ActivitySignUrlsDto>
+    * @return List<ActivitySignListDto>
     */
-    List<ActivitySignUrlsDto> queryAll(ActivitySignUrlsQueryCriteria criteria);
+    List<ActivitySignListDto> queryAll(ActivitySignListQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return ActivitySignUrlsDto
+     * @return ActivitySignListDto
      */
-    ActivitySignUrlsDto findById(Long id);
+    ActivitySignListDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return ActivitySignUrlsDto
+    * @return ActivitySignListDto
     */
-    ActivitySignUrlsDto create(ActivitySignUrls resources);
-
-    /**
-     * 新建或者更新
-     * @param resources
-     */
-    void createOrUpdate(ActivitySignUrls resources);
+    ActivitySignListDto create(ActivitySignList resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(ActivitySignUrls resources);
+    void update(ActivitySignList resources);
 
     /**
     * 多选删除
@@ -85,5 +79,5 @@ public interface ActivitySignUrlsService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<ActivitySignUrlsDto> all, HttpServletResponse response) throws IOException;
+    void download(List<ActivitySignListDto> all, HttpServletResponse response) throws IOException;
 }

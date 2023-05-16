@@ -13,17 +13,36 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.activity.repository;
+package me.zhengjie.modules.activity.service.dto;
 
-import me.zhengjie.modules.activity.domain.ActivitySignUrls;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import lombok.Data;
+import java.sql.Timestamp;
+import java.io.Serializable;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 /**
 * @website https://eladmin.vip
-* @author xt
+* @description /
+* @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignUrlsRepository extends JpaRepository<ActivitySignUrls, Long>, JpaSpecificationExecutor<ActivitySignUrls> {
-    ActivitySignUrls findByActiId(long acti_id);
+@Data
+public class ActivitySignListDto implements Serializable {
+
+    /** 防止精度丢失 */
+    @JSONField(serializeUsing = ToStringSerializer.class)
+    private Long id;
+
+    private Long actiId;
+
+    private String trueName;
+
+    private String nickName;
+
+    private String headImage;
+
+    private Timestamp signDate;
+
+    private String signUrl;
 }
