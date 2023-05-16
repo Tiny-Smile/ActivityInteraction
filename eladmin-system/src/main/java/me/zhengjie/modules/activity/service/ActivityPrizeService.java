@@ -15,9 +15,9 @@
 */
 package me.zhengjie.modules.activity.service;
 
-import me.zhengjie.modules.activity.domain.ActivitySignList;
-import me.zhengjie.modules.activity.service.dto.ActivitySignListDto;
-import me.zhengjie.modules.activity.service.dto.ActivitySignListQueryCriteria;
+import me.zhengjie.modules.activity.domain.ActivityPrize;
+import me.zhengjie.modules.activity.service.dto.ActivityPrizeDto;
+import me.zhengjie.modules.activity.service.dto.ActivityPrizeQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignListService {
+public interface ActivityPrizeService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface ActivitySignListService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(ActivitySignListQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(ActivityPrizeQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<ActivitySignListDto>
+    * @return List<ActivityPrizeDto>
     */
-    List<ActivitySignListDto> queryAll(ActivitySignListQueryCriteria criteria);
+    List<ActivityPrizeDto> queryAll(ActivityPrizeQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param actiId ID
-     * @return ActivitySignListDto
+     * @return ActivityPrizeDto
      */
-    ActivitySignListDto findById(Long actiId);
+    ActivityPrizeDto findById(Long actiId);
 
     /**
     * 创建
     * @param resources /
-    * @return ActivitySignListDto
+    * @return ActivityPrizeDto
     */
-    ActivitySignListDto create(ActivitySignList resources);
+    ActivityPrizeDto create(ActivityPrize resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(ActivitySignList resources);
+    void update(ActivityPrize resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface ActivitySignListService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<ActivitySignListDto> all, HttpServletResponse response) throws IOException;
+    void download(List<ActivityPrizeDto> all, HttpServletResponse response) throws IOException;
 }

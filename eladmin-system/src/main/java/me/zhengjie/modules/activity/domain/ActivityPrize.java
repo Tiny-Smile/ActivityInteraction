@@ -21,6 +21,9 @@ import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.*;
 import java.sql.Timestamp;
 import java.io.Serializable;
 
@@ -32,39 +35,48 @@ import java.io.Serializable;
 **/
 @Entity
 @Data
-@Table(name="activity_sign_list")
-public class ActivitySignList implements Serializable {
+@Table(name="activity_prize")
+public class ActivityPrize implements Serializable {
 
     @Id
     @Column(name = "`acti_id`")
     @ApiModelProperty(value = "活动ID")
     private Long actiId;
 
-    @Column(name = "`true_name`")
-    @ApiModelProperty(value = "姓名")
-    private String trueName;
+    @Column(name = "`prize_title`")
+    @ApiModelProperty(value = "奖项")
+    private String prizeTitle;
 
-    @Column(name = "`nick_name`")
-    @ApiModelProperty(value = "昵称")
-    private String nickName;
+    @Column(name = "`prize`")
+    @ApiModelProperty(value = "奖品")
+    private String prize;
 
-    @Column(name = "`head_image`")
-    @ApiModelProperty(value = "头像")
-    private String headImage;
+    @Column(name = "`prize_number`")
+    @ApiModelProperty(value = "中奖人数")
+    private Integer prizeNumber;
 
-    @Column(name = "`sign_date`")
-    @ApiModelProperty(value = "签到时间")
-    private Timestamp signDate;
+    @Column(name = "`winner_names`")
+    @ApiModelProperty(value = "中奖人")
+    private String winnerNames;
 
-    @Column(name = "`sign_url`")
-    @ApiModelProperty(value = "签到二维码")
-    private String signUrl;
-
-    @Column(name = "`job_id`")
+    @Column(name = "`winner_jobid`")
     @ApiModelProperty(value = "工号")
-    private String jobId;
+    private String winnerJobid;
 
-    public void copy(ActivitySignList source){
+    @Column(name = "`source`")
+    @ApiModelProperty(value = "数据源")
+    private String source;
+
+    @Column(name = "`create_date`")
+    @UpdateTimestamp
+    @ApiModelProperty(value = "日期")
+    private Timestamp createDate;
+
+    @Column(name = "`status`")
+    @ApiModelProperty(value = "状态")
+    private String status;
+
+    public void copy(ActivityPrize source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

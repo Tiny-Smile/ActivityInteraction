@@ -13,33 +13,16 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.activity.service.dto;
+package me.zhengjie.modules.activity.repository;
 
-import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import me.zhengjie.modules.activity.domain.ActivityPrize;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://eladmin.vip
 * @author renrui
 * @date 2023-05-16
 **/
-@Data
-public class ActivitySignListQueryCriteria{
-
-    /** 精确 */
-    @Query
-    private Long actiId;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String trueName;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String nickName;
-
-    /** 精确 */
-    @Query
-    private String jobId;
+public interface ActivityPrizeRepository extends JpaRepository<ActivityPrize, Long>, JpaSpecificationExecutor<ActivityPrize> {
 }

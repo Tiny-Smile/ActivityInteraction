@@ -25,7 +25,7 @@ import me.zhengjie.annotation.Query;
 * @date 2023-05-16
 **/
 @Data
-public class ActivitySignListQueryCriteria{
+public class ActivityPrizeQueryCriteria{
 
     /** 精确 */
     @Query
@@ -33,13 +33,17 @@ public class ActivitySignListQueryCriteria{
 
     /** 模糊 */
     @Query(type = Query.Type.INNER_LIKE)
-    private String trueName;
+    private String prizeTitle;
 
     /** 模糊 */
     @Query(type = Query.Type.INNER_LIKE)
-    private String nickName;
+    private String winnerNames;
 
     /** 精确 */
     @Query
-    private String jobId;
+    private String winnerJobid;
+
+    /** 精确 */
+    @Query
+    private String status;
 }

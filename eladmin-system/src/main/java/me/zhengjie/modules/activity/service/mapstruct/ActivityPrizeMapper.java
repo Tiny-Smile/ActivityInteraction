@@ -13,33 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.activity.service.dto;
+package me.zhengjie.modules.activity.service.mapstruct;
 
-import lombok.Data;
-import java.util.List;
-import me.zhengjie.annotation.Query;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.modules.activity.domain.ActivityPrize;
+import me.zhengjie.modules.activity.service.dto.ActivityPrizeDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
 * @author renrui
 * @date 2023-05-16
 **/
-@Data
-public class ActivitySignListQueryCriteria{
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ActivityPrizeMapper extends BaseMapper<ActivityPrizeDto, ActivityPrize> {
 
-    /** 精确 */
-    @Query
-    private Long actiId;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String trueName;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String nickName;
-
-    /** 精确 */
-    @Query
-    private String jobId;
 }
