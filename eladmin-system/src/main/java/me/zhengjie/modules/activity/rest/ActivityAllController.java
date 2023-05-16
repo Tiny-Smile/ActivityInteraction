@@ -15,10 +15,15 @@
 */
 package me.zhengjie.modules.activity.rest;
 
+import com.alibaba.fastjson.JSON;
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.activity.domain.ActivityAll;
+import me.zhengjie.modules.activity.domain.ActivitySignUrls;
 import me.zhengjie.modules.activity.service.ActivityAllService;
+import me.zhengjie.modules.activity.service.ActivitySignUrlsService;
 import me.zhengjie.modules.activity.service.dto.ActivityAllQueryCriteria;
+import me.zhengjie.modules.activity.service.dto.ActivitySignUrlsDto;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,6 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ActivityAllController {
 
     private final ActivityAllService activityAllService;
+    private final ActivitySignUrlsService activitySignUrlsService;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
@@ -82,6 +88,19 @@ public class ActivityAllController {
     @PreAuthorize("@el.check('activityAll:del')")
     public ResponseEntity<Object> deleteActivityAll(@RequestBody Long[] ids) {
         activityAllService.deleteAll(ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/generate_sign_qrcode")
+    @Log("生成活动签到二维码")
+    @ApiOperation("生成活动签到二维码")
+    @AnonymousAccess
+    public ResponseEntity<Object> generateSignQrcode(String acti_id){
+        String url = "http://localhost:8013/activity/sign?acti_id="+acti_id;
+        ActivitySignUrls activitySignUrls = new ActivitySignUrls();
+        activitySignUrls.setSignUrl(url);
+        activitySignUrls.setActiId(Long.getLong(acti_id));
+        System.out.println(JSON.toJSON(activitySignUrls));
+        activitySignUrlsService.create(activitySignUrls);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

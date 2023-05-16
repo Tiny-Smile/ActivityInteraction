@@ -26,8 +26,6 @@ import me.zhengjie.modules.activity.service.dto.ActivityAllQueryCriteria;
 import me.zhengjie.modules.activity.service.mapstruct.ActivityAllMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.util.IdUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
@@ -65,33 +63,31 @@ public class ActivityAllServiceImpl implements ActivityAllService {
 
     @Override
     @Transactional
-    public ActivityAllDto findById(Long actiId) {
-        ActivityAll activityAll = activityAllRepository.findById(actiId).orElseGet(ActivityAll::new);
-        ValidationUtil.isNull(activityAll.getActiId(),"ActivityAll","actiId",actiId);
+    public ActivityAllDto findById(Long id) {
+        ActivityAll activityAll = activityAllRepository.findById(id).orElseGet(ActivityAll::new);
+        ValidationUtil.isNull(activityAll.getId(),"ActivityAll","id",id);
         return activityAllMapper.toDto(activityAll);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ActivityAllDto create(ActivityAll resources) {
-        Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-        resources.setActiId(snowflake.nextId()); 
         return activityAllMapper.toDto(activityAllRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(ActivityAll resources) {
-        ActivityAll activityAll = activityAllRepository.findById(resources.getActiId()).orElseGet(ActivityAll::new);
-        ValidationUtil.isNull( activityAll.getActiId(),"ActivityAll","id",resources.getActiId());
+        ActivityAll activityAll = activityAllRepository.findById(resources.getId()).orElseGet(ActivityAll::new);
+        ValidationUtil.isNull( activityAll.getId(),"ActivityAll","id",resources.getId());
         activityAll.copy(resources);
         activityAllRepository.save(activityAll);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long actiId : ids) {
-            activityAllRepository.deleteById(actiId);
+        for (Long id : ids) {
+            activityAllRepository.deleteById(id);
         }
     }
 
@@ -105,6 +101,8 @@ public class ActivityAllServiceImpl implements ActivityAllService {
             map.put("活动地点", activityAll.getAddress());
             map.put("活动时间", activityAll.getDateTime());
             map.put("参加对象", activityAll.getJoinPeople());
+            map.put("活动类型", activityAll.getType());
+            map.put("0: 结束，other：进行中", activityAll.getStatus());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

@@ -21,18 +21,35 @@ import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import org.hibernate.annotations.*;
+import java.sql.Timestamp;
 import java.io.Serializable;
 
 /**
 * @website https://eladmin.vip
 * @description /
 * @author xt
-* @date 2023-05-15
+* @date 2023-05-16
 **/
 @Entity
 @Data
-@Table(name="activity_all")
-public class ActivityAll implements Serializable {
+@Table(name="activity_sign_urls")
+public class ActivitySignUrls implements Serializable {
+
+    @Column(name = "`acti_id`")
+    @ApiModelProperty(value = "actiId")
+    private Long actiId;
+
+    @Column(name = "`sign_url`")
+    @ApiModelProperty(value = "signUrl")
+    private String signUrl;
+
+    @Column(name = "`create_date`")
+    @UpdateTimestamp
+    @ApiModelProperty(value = "createDate")
+    private Timestamp createDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,40 +57,7 @@ public class ActivityAll implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "`acti_id`")
-    @ApiModelProperty(value = "活动id")
-    private Long actiId;
-
-    @Column(name = "`theme`",nullable = false)
-    @NotBlank
-    @ApiModelProperty(value = "活动主题")
-    private String theme;
-
-    @Column(name = "`dept_id`")
-    @ApiModelProperty(value = "主办方")
-    private Long deptId;
-
-    @Column(name = "`address`")
-    @ApiModelProperty(value = "活动地点")
-    private String address;
-
-    @Column(name = "`date_time`")
-    @ApiModelProperty(value = "活动时间")
-    private String dateTime;
-
-    @Column(name = "`join_people`")
-    @ApiModelProperty(value = "参加对象")
-    private String joinPeople;
-
-    @Column(name = "`type`")
-    @ApiModelProperty(value = "活动类型")
-    private String type;
-
-    @Column(name = "`status`")
-    @ApiModelProperty(value = "0: 结束，other：进行中")
-    private String status;
-
-    public void copy(ActivityAll source){
+    public void copy(ActivitySignUrls source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }
