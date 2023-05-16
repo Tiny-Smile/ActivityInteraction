@@ -15,15 +15,14 @@
 */
 package me.zhengjie.modules.activity.repository;
 
-import me.zhengjie.modules.activity.domain.ActivitySignUrls;
+import me.zhengjie.modules.activity.domain.ActivitySignList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
 * @website https://eladmin.vip
-* @author xt
+* @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignUrlsRepository extends JpaRepository<ActivitySignUrls, Long>, JpaSpecificationExecutor<ActivitySignUrls> {
-    ActivitySignUrls findByActiId(long acti_id);
+public interface ActivitySignListRepository extends JpaRepository<ActivitySignList, Long>, JpaSpecificationExecutor<ActivitySignList> {
 }

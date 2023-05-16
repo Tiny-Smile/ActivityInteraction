@@ -13,17 +13,29 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.activity.repository;
+package me.zhengjie.modules.activity.service.dto;
 
-import me.zhengjie.modules.activity.domain.ActivitySignUrls;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import lombok.Data;
+import java.util.List;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://eladmin.vip
-* @author xt
+* @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignUrlsRepository extends JpaRepository<ActivitySignUrls, Long>, JpaSpecificationExecutor<ActivitySignUrls> {
-    ActivitySignUrls findByActiId(long acti_id);
+@Data
+public class ActivitySignListQueryCriteria{
+
+    /** 精确 */
+    @Query
+    private Long actiId;
+
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
+    private String trueName;
+
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
+    private String nickName;
 }

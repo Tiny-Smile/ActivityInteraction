@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.activity.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import me.zhengjie.modules.activity.domain.ActivitySignUrls;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
@@ -73,6 +74,17 @@ public class ActivitySignUrlsServiceImpl implements ActivitySignUrlsService {
     @Transactional(rollbackFor = Exception.class)
     public ActivitySignUrlsDto create(ActivitySignUrls resources) {
         return activitySignUrlsMapper.toDto(activitySignUrlsRepository.save(resources));
+    }
+
+    public void createOrUpdate(ActivitySignUrls resources){
+        ActivitySignUrls activitySignUrls = activitySignUrlsRepository.findByActiId(resources.getActiId());
+        if(activitySignUrls != null){
+            resources.setId(activitySignUrls.getId());
+            activitySignUrls.copy(resources);
+            activitySignUrlsRepository.save(activitySignUrls);
+        } else {
+            activitySignUrlsRepository.save(resources);
+        }
     }
 
     @Override

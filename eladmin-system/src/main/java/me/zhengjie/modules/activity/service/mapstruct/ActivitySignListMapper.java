@@ -13,17 +13,20 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.modules.activity.repository;
+package me.zhengjie.modules.activity.service.mapstruct;
 
-import me.zhengjie.modules.activity.domain.ActivitySignUrls;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import me.zhengjie.base.BaseMapper;
+import me.zhengjie.modules.activity.domain.ActivitySignList;
+import me.zhengjie.modules.activity.service.dto.ActivitySignListDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 /**
 * @website https://eladmin.vip
-* @author xt
+* @author renrui
 * @date 2023-05-16
 **/
-public interface ActivitySignUrlsRepository extends JpaRepository<ActivitySignUrls, Long>, JpaSpecificationExecutor<ActivitySignUrls> {
-    ActivitySignUrls findByActiId(long acti_id);
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ActivitySignListMapper extends BaseMapper<ActivitySignListDto, ActivitySignList> {
+
 }
