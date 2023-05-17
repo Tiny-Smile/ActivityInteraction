@@ -32,12 +32,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @website https://eladmin.vip
@@ -112,4 +110,5 @@ public class ActivityPrizeServiceImpl implements ActivityPrizeService {
         }
         FileUtil.downloadExcel(list, response);
     }
+
 }

@@ -15,10 +15,17 @@
 */
 package me.zhengjie.modules.activity.rest;
 
+import com.alibaba.fastjson.JSON;
+import me.zhengjie.annotation.AnonymousAccess;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.activity.domain.ActivityPrize;
+import me.zhengjie.modules.activity.domain.ActivitySignList;
 import me.zhengjie.modules.activity.service.ActivityPrizeService;
+import me.zhengjie.modules.activity.service.ActivitySignListService;
 import me.zhengjie.modules.activity.service.dto.ActivityPrizeQueryCriteria;
+import me.zhengjie.modules.activity.service.dto.ActivitySignListDto;
+import me.zhengjie.modules.activity.service.dto.ActivitySignListQueryCriteria;
+import me.zhengjie.modules.activity.service.mapstruct.ActivitySignListMapper;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +35,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -42,6 +50,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ActivityPrizeController {
 
     private final ActivityPrizeService activityPrizeService;
+    private final ActivitySignListService activitySignListService;
+    private final ActivitySignListMapper activitySignListMapper;
 
     @Log("导出数据")
     @ApiOperation("导出数据")
@@ -83,5 +93,17 @@ public class ActivityPrizeController {
     public ResponseEntity<Object> deleteActivityPrize(@RequestBody Long[] ids) {
         activityPrizeService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value ="/get_right_person")
+    @Log("获得抽奖人")
+    @ApiOperation("获得抽奖人")
+    public ResponseEntity<Object> prize(@RequestBody ActivityPrize resources) {
+        ActivitySignListQueryCriteria criteria =  new ActivitySignListQueryCriteria();
+        criteria.setActiId(resources.getActiId());
+        List< ActivitySignList> signsList = activitySignListMapper.toEntity(activitySignListService.queryAll(criteria)) ;
+        ActivitySignList prizeItem = activitySignListService.getRandomObject(signsList);
+        System.out.println("item: "+ JSON.toJSONString(prizeItem));
+        return new ResponseEntity<>(prizeItem, HttpStatus.OK);
     }
 }

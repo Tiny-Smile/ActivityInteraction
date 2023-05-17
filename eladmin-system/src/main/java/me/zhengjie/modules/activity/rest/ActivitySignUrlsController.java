@@ -29,6 +29,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -86,16 +88,17 @@ public class ActivitySignUrlsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/generate_sign_qrcode")
+    @GetMapping(value ="/generate_sign_qrcode")
     @Log("生成活动签到二维码")
     @ApiOperation("生成活动签到二维码")
-    @AnonymousAccess
     public ResponseEntity<Object> generateSignQrcode(String acti_id){
         String url = "http://localhost:8013/activity/sign?acti_id="+acti_id;
         ActivitySignUrls activitySignUrls = new ActivitySignUrls();
         activitySignUrls.setSignUrl(url);
         activitySignUrls.setActiId(Long.parseLong(acti_id));
         activitySignUrlsService.createOrUpdate(activitySignUrls);
-        return new ResponseEntity<>(url, HttpStatus.OK);
+        Map<String, Object> result = new HashMap<>();
+        result.put("signQrcode", url);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

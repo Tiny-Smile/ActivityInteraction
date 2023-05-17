@@ -31,6 +31,7 @@ import com.alibaba.fastjson.serializer.ToStringSerializer;
 public class ActivitySignListDto implements Serializable {
 
     /** 活动ID */
+    private Long id;
     /** 防止精度丢失 */
     @JSONField(serializeUsing = ToStringSerializer.class)
     private Long actiId;

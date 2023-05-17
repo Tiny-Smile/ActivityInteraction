@@ -15,6 +15,7 @@
 */
 package me.zhengjie.modules.activity.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import me.zhengjie.modules.activity.domain.ActivitySignList;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
@@ -32,12 +33,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @website https://eladmin.vip
@@ -109,5 +108,12 @@ public class ActivitySignListServiceImpl implements ActivitySignListService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    public ActivitySignList getRandomObject(List<ActivitySignList> objectList) {
+        System.out.println("list: "+ JSON.toJSONString(objectList));
+        Random random = new Random();
+        int randomIndex = random.nextInt(objectList.size());
+        return objectList.get(randomIndex);
     }
 }

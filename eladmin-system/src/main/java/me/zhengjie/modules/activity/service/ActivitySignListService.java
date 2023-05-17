@@ -80,4 +80,5 @@ public interface ActivitySignListService {
     * @throws IOException /
     */
     void download(List<ActivitySignListDto> all, HttpServletResponse response) throws IOException;
+    ActivitySignList getRandomObject(List<ActivitySignList> objectList);
 }
