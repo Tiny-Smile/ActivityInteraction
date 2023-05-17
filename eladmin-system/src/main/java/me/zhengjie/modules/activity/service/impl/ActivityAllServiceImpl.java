@@ -1,18 +1,18 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2019-2020 Zheng Jie
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package me.zhengjie.modules.activity.service.impl;
 
 import me.zhengjie.modules.activity.domain.ActivityAll;
@@ -26,6 +26,8 @@ import me.zhengjie.modules.activity.service.dto.ActivityAllQueryCriteria;
 import me.zhengjie.modules.activity.service.mapstruct.ActivityAllMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
@@ -38,11 +40,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
-* @website https://eladmin.vip
-* @description 服务实现
-* @author xt
-* @date 2023-05-15
-**/
+ * @website https://eladmin.vip
+ * @description 服务实现
+ * @author xt
+ * @date 2023-05-17
+ **/
 @Service
 @RequiredArgsConstructor
 public class ActivityAllServiceImpl implements ActivityAllService {
@@ -63,31 +65,33 @@ public class ActivityAllServiceImpl implements ActivityAllService {
 
     @Override
     @Transactional
-    public ActivityAllDto findById(Long id) {
-        ActivityAll activityAll = activityAllRepository.findById(id).orElseGet(ActivityAll::new);
-        ValidationUtil.isNull(activityAll.getId(),"ActivityAll","id",id);
+    public ActivityAllDto findById(Long actiId) {
+        ActivityAll activityAll = activityAllRepository.findById(actiId).orElseGet(ActivityAll::new);
+        ValidationUtil.isNull(activityAll.getActiId(),"ActivityAll","actiId",actiId);
         return activityAllMapper.toDto(activityAll);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ActivityAllDto create(ActivityAll resources) {
+        Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+        resources.setActiId(snowflake.nextId());
         return activityAllMapper.toDto(activityAllRepository.save(resources));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(ActivityAll resources) {
-        ActivityAll activityAll = activityAllRepository.findById(resources.getId()).orElseGet(ActivityAll::new);
-        ValidationUtil.isNull( activityAll.getId(),"ActivityAll","id",resources.getId());
+        ActivityAll activityAll = activityAllRepository.findById(resources.getActiId()).orElseGet(ActivityAll::new);
+        ValidationUtil.isNull( activityAll.getActiId(),"ActivityAll","id",resources.getActiId());
         activityAll.copy(resources);
         activityAllRepository.save(activityAll);
     }
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long id : ids) {
-            activityAllRepository.deleteById(id);
+        for (Long actiId : ids) {
+            activityAllRepository.deleteById(actiId);
         }
     }
 

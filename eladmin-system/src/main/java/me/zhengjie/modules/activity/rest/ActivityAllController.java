@@ -94,4 +94,8 @@ public class ActivityAllController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+//    public ResponseEntity<Object> getActivityDetail(){
+//        return new ResponseEntity<>(activityAllService.queryAll(criteria,pageable),HttpStatus.OK);
+//    }
+
 }

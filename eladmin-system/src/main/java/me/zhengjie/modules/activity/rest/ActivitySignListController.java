@@ -84,4 +84,11 @@ public class ActivitySignListController {
         activitySignListService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value = "/get_all_signList")
+    @Log("获取所有签到列表")
+    @ApiOperation("获取所有签到列表")
+    public ResponseEntity<Object> getAllSignList(ActivitySignListQueryCriteria criteria){
+        return new ResponseEntity<>(activitySignListService.queryAll(criteria),HttpStatus.OK);
+    }
 }
